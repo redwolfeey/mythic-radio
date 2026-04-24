@@ -1,22 +1,30 @@
 name: Create Zip Release
 
 on:
-  workflow_dispatch:  # Enables manual trigger from GitHub UI
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Release tag (must exist or will be created)'
+        required: true
+        type: string
   push:
     tags:
-      - 'v*'  # Trigger on tags starting with v (e.g., v1.0.0)
+      - 'v*'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
       - name: Archive Release
         uses: thedoctor0/zip-release@main
         with:
           type: 'zip'
           filename: 'release.zip'
+      
       - name: Upload to Release
         uses: softprops/action-gh-release@v2
         with:
           files: release.zip
+          tag_name: ${{ github.event.inputs.tag_name || github.ref_name }}
