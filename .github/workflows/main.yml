@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       tag_name:
-        description: 'Release tag (must exist or will be created)'
+        description: 'Release tag (e.g., v1.0.0)'
         required: true
         type: string
   push:
@@ -16,6 +16,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Set tag for manual trigger
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          git tag ${{ github.event.inputs.tag_name }}
+          git push origin ${{ github.event.inputs.tag_name }}
       
       - name: Archive Release
         uses: thedoctor0/zip-release@main
@@ -28,3 +36,4 @@ jobs:
         with:
           files: release.zip
           tag_name: ${{ github.event.inputs.tag_name || github.ref_name }}
+          token: ${{ secrets.RELEASE_TOKEN }}  # Use the PAT instead
