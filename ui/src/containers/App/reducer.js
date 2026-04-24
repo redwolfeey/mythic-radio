@@ -1,10 +1,13 @@
+const isDev = process.env.NODE_ENV === 'development';
+
 export const initialState = {
-  hidden: true,
-  power: false,
+  hidden: !isDev,
+  power: isDev,
   volume: 100,
   frequency: 0,
   frequencyName: '',
   typeName: 'Radio',
+  radioType: 1,
 };
 
 const appReducer = (state = initialState, action) => {
@@ -27,6 +30,7 @@ const appReducer = (state = initialState, action) => {
         power: action.payload.power,
         volume: action.payload.volume,
         typeName: action.payload.typeName,
+        radioType: action.payload.radioType ?? state.radioType,
       }
     default:
       return state;

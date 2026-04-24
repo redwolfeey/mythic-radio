@@ -1,10 +1,30 @@
 import { createGlobalStyle } from 'styled-components';
-import Pricedown from 'fonts/pricedown.ttf';
 
 const GlobalStyle = createGlobalStyle`
-  @font-face {
-    font-family: 'Pricedown';
-    src: url(${Pricedown});
+  * {
+    box-sizing: border-box;
+    user-select: none;
+  }
+
+  html,
+  body,
+  #app {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: transparent;
+    font-family: 'Oswald', sans-serif;
+  }
+
+  input::-webkit-inner-spin-button,
+  input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
   }
 `;
 

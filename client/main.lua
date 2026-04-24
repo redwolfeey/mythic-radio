@@ -141,6 +141,7 @@ function OpenRadio()
 
 	radioOpen = true
 	SetNuiFocus(true, true)
+	SendUpdates()
 	SendNUIMessage({
 		type = "APP_SHOW",
 	})
@@ -187,6 +188,7 @@ function SendUpdates()
 			power = RADIO_POWER,
 			volume = Utils:Round(RADIO_VOLUME, 0),
 			typeName = radioNames[HAS_RADIO] or 'Radio',
+			radioType = HAS_RADIO or 1,
 		}
 	})
 end

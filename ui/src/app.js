@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import App from 'containers/App';
 
 import WindowListener from 'containers/WindowListener';
+import GlobalStyle from './globalStyles';
 
 import configureStore from './configureStore';
 
@@ -17,6 +18,7 @@ const MOUNT_NODE = document.getElementById('app');
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
+      <GlobalStyle />
       <WindowListener>
         <App />
       </WindowListener>
