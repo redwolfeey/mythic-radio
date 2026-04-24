@@ -1,8 +1,11 @@
 name: Create Zip Release
+
 on:
+  workflow_dispatch:  # Enables manual trigger from GitHub UI
   push:
     tags:
       - 'v*'  # Trigger on tags starting with v (e.g., v1.0.0)
+
 jobs:
   build:
     runs-on: ubuntu-latest
